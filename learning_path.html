@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextStep | Your Learning Path</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#4338ca',
+                        secondary: '#3b82f6',
+                        accent: '#eab308',
+                        'next-gray': '#f3f4f6',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-next-gray font-sans text-gray-800">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto flex items-center justify-between py-4 px-4">
+            <a href="index.html" class="logo text-primary text-2xl font-bold">NextStep</a>
+            <a href="index.html" class="text-gray-600 hover:text-primary transition-colors">&larr; Back to Home</a>
+        </div>
+    </header>
+
+    <main class="py-16 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold mb-4">Your Personalized Learning Path</h1>
+                <p class="text-lg text-gray-600">Bridge your skill gaps with this curated roadmap to become a <span class="font-bold text-primary">Software Engineer</span>.</p>
+            </div>
+
+            <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:h-full before:w-0.5 before:bg-gray-200">
+                
+                <!-- Step 1 -->
+                <div class="relative flex items-start gap-x-5">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white ring-8 ring-white">
+                        <span class="font-bold">1</span>
+                    </div>
+                    <div class="w-full bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-lg font-semibold text-gray-800">Complete "Advanced Python" Course</h3>
+                        <p class="mt-1 text-gray-600">Focus on object-oriented programming and data structures. Estimated time: 4 weeks.</p>
+                        <a href="#" class="mt-3 inline-block text-secondary font-semibold hover:underline">View Course on Coursera &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative flex items-start gap-x-5">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white ring-8 ring-white">
+                        <span class="font-bold">2</span>
+                    </div>
+                    <div class="w-full bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-lg font-semibold text-gray-800">Build a Portfolio Project</h3>
+                        <p class="mt-1 text-gray-600">Create a full-stack web application using Flask or Django to demonstrate your Python skills. Estimated time: 3 weeks.</p>
+                        <a href="#" class="mt-3 inline-block text-secondary font-semibold hover:underline">See Project Ideas &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative flex items-start gap-x-5">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white ring-8 ring-white">
+                        <span class="font-bold">3</span>
+                    </div>
+                    <div class="w-full bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-lg font-semibold text-gray-800">Learn Cloud Fundamentals</h3>
+                        <p class="mt-1 text-gray-600">Get certified with AWS Cloud Practitioner to understand cloud infrastructure. Estimated time: 2 weeks.</p>
+                        <a href="#" class="mt-3 inline-block text-secondary font-semibold hover:underline">Find Certification Prep &rarr;</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+</body>
+</html>

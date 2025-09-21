@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextStep | Your Career Navigator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#4338ca',
+                        secondary: '#3b82f6',
+                        accent: '#eab308',
+                        'next-gray': '#f3f4f6',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .container.column {
+            flex-direction: column;
+            align-items: center;
+        }
+        .desktop-nav {
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .desktop-nav {
+                display: flex;
+            }
+        }
+        /* Custom scrollbar hiding */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        .feature-icon svg {
+            width: 3rem;
+            height: 3rem;
+            stroke-width: 1.5;
+        }
+        .skeleton-card {
+            background: linear-gradient(90deg, #e5e7eb 25%, #d1d5db 50%, #e5e7eb 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        @keyframes loading {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+        /* Add padding to the bottom of the body on mobile to prevent content being hidden by the fixed nav bar */
+        @media (max-width: 767px) {
+            body {
+                padding-bottom: 80px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-next-gray font-sans text-gray-800">
+    <header id="main-header" class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container flex items-center justify-between py-4">
+            <a href="#" class="logo text-primary text-2xl font-bold">NextStep</a>
+            <nav class="desktop-nav space-x-4">
+                <ul class="flex space-x-6">
+                    <li><a href="#" class="flex items-center space-x-1 text-gray-600 hover:text-primary transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+                        <span>Find Jobs</span></a></li>
+                    <li><a href="#" class="flex items-center space-x-1 text-gray-600 hover:text-primary transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+                        <span>Companies</span></a></li>
+                    <li><a href="#" class="flex items-center space-x-1 text-gray-600 hover:text-primary transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 12H16c-.7 2-2 3-4 3s-3.3-1-4-3H2.5"></path><path d="M5.5 5.1L2 12v6c0 1.1.9 2 2 2h16a2 2 0 0 0 2-2v-6l-3.4-6.9A2 2 0 0 0 16.8 4H7.2a2 2 0 0 0-1.8 1.1z"></path></svg>
+                        <span>Career Advice</span></a></li>
+                </ul>
+            </nav>
+            <div class="actions desktop-nav">
+                <div class="relative">
+                    <button id="account-button" class="btn btn-primary bg-primary text-white py-2 px-4 rounded-full font-semibold shadow-md hover:bg-opacity-90 transition-colors flex items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        <span>My Account</span>
+                         <svg id="dropdown-chevron" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div id="account-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
+                        <a href="profile.html" id="profile-link" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                        <a href="#login-page" id="login-link" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero bg-primary text-white py-20 px-4">
+            <div class="hero-content container text-center">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">Your Next Career Move Starts Here.</h1>
+                <p class="text-lg md:text-xl text-white/90 mb-8">Discover opportunities in Manglore, India and beyond.</p>
+                <div class="search-container-wrapper max-w-2xl mx-auto">
+                    <div class="relative bg-white p-2 rounded-full shadow-lg">
+                        <input type="text" id="job-search-input" class="w-full text-gray-800 py-3 px-6 rounded-full border-none focus:outline-none" placeholder="Search for 'Software Engineer', 'Data Analyst'...">
+                        <button id="search-btn" class="absolute right-3 top-1/2 -translate-y-1/2 bg-secondary text-white p-2 rounded-full hover:bg-blue-600 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODIFIED: Job listings section now has horizontal scroll on all screen sizes -->
+        <section class="job-listings-section py-16 px-4">
+            <div class="container">
+                <h2 id="job-listings-title" class="text-3xl font-bold mb-8 text-center">Available Positions</h2>
+                <div class="relative group">
+                    <div id="scroll-wrapper" class="no-scrollbar flex overflow-x-auto py-4 -mx-4 px-4 space-x-6 md:space-x-8">
+                         <div class="job-listings-grid flex flex-nowrap space-x-6" id="job-listings-grid">
+                            <!-- Job cards will be dynamically inserted here -->
+                        </div>
+                    </div>
+                    <!-- Scroll arrows are now visible on all screen sizes and controlled by JS -->
+                    <button id="scroll-left" class="scroll-arrow absolute top-1/2 -translate-y-1/2 left-2 bg-white/80 p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all z-10 hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button id="scroll-right" class="scroll-arrow absolute top-1/2 -translate-y-1/2 right-2 bg-white/80 p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all z-10">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-toolkit-section bg-white py-16 px-4">
+            <div class="container column">
+                <h2 class="text-3xl font-bold text-center mb-4">Your Complete Career Toolkit</h2>
+                <p class="section-subtitle text-center max-w-3xl mb-12 text-gray-600">From self-discovery to landing your dream job, we provide the tools you need to navigate every step of your professional journey.</p>
+                <div class="features-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Card 1: Onboarding -->
+                    <a href="onboarding.html" class="feature-card block bg-next-gray p-8 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2">
+                        <div class="feature-icon bg-primary text-white p-4 rounded-full inline-block mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Onboarding & Profiling</h3>
+                        <p class="text-gray-600">A gamified career quiz and LinkedIn/resume import to create your personalized career dashboard instantly.</p>
+                    </a>
+                    <!-- Card 2: Career Map -->
+                    <a href="career_map.html" class="feature-card block bg-next-gray p-8 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2">
+                        <div class="feature-icon bg-primary text-white p-4 rounded-full inline-block mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8c0-4.42-3.58-8-8-8S2 3.58 2 8c0 2.24.93 4.26 2.42 5.74L12 22l7.58-8.26C21.07 12.26 22 10.24 22 8Z"></path><circle cx="12" cy="8" r="2"></circle></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Career Map Explorer</h3>
+                        <p class="text-gray-600">An interactive map showing possible career paths, salaries, required skills, and a personalized “fit score” for each role.</p>
+                    </a>
+                    <!-- Card 3: Skill Gap Analyzer -->
+                    <a href="skill_gap.html" class="feature-card block bg-next-gray p-8 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2">
+                        <div class="feature-icon bg-primary text-white p-4 rounded-full inline-block mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"></path><path d="M18 9l-6 6-6-6"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Skill Gap Analyzer</h3>
+                        <p class="text-gray-600">AI compares your profile against industry benchmarks to identify skill gaps and visualize them as progress bars.</p>
+                    </a>
+                    <!-- Card 4: Learning Path -->
+                    <a href="learning_path.html" class="feature-card block bg-next-gray p-8 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2">
+                        <div class="feature-icon bg-primary text-white p-4 rounded-full inline-block mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-2.1 2.1-2.1 5.6 0 7.7 2.1 2.1 5.6 2.1 7.7 0l1.4-1.4c.1-.1.2-.3.2-.5 0-.2-.1-.4-.2-.5l-1.4-1.4c-.1-.1-.3-.2-.5-.2h-2.1l-2.1-2.1c-.1-.1-.3-.2-.5-.2s-.4.1-.5.2z"></path><path d="m19.5 2.5 1 1"></path><path d="m16.5 5.5 1 1"></path><path d="M15 1.5c-3 3-6 6-9 9l-1 1"></path><path d="M13.5 12.5c2.1 2.1 5.6 2.1 7.7 0s2.1-5.6 0-7.7l-1-1"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Learning Path Generator</h3>
+                        <p class="text-gray-600">Receive a curated, step-by-step roadmap of courses, projects, and internships to bridge your skill gaps effectively.</p>
+                    </a>
+                    <!-- Card 5: Smart Coach -->
+                    <a href="smart_coach.html" class="feature-card block bg-next-gray p-8 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2">
+                        <div class="feature-icon bg-primary text-white p-4 rounded-full inline-block mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 12a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5v5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-5z"></path><path d="M18.5 12a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5v5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-5z"></path><path d="M2 12a10 10 0 0 0 20 0Z"></path><path d="M6 12a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5v5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-5z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Smart Career Coach</h3>
+                        <p class="text-gray-600">Your personal AI mentor for mock interviews, resume optimization, and daily skill-building challenges.</p>
+                    </a>
+                    <!-- Card 6: Job Tracker -->
+                    <a href="job_tracker.html" class="feature-card block bg-next-gray p-8 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2">
+                        <div class="feature-icon bg-primary text-white p-4 rounded-full inline-block mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a10 10 0 1 0-8.45-4.67"></path><path d="M22 12a10 10 0 0 0-18 6.32"></path><path d="M2 12a10 10 0 0 1 15.66-8.25"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Job & Internship Tracker</h3>
+                        <p class="text-gray-600">Get a personalized feed of jobs and internships from top platforms where you have the highest chance of success.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Combined and Flexible AI Features Section -->
+        <section class="ai-tools-section bg-next-gray py-16 px-4">
+            <div class="container mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    
+                    <!-- AI Feature 1: Instant Career Advice -->
+                    <div class="flex flex-col h-full">
+                        <div class="text-center mb-8">
+                            <h2 class="text-3xl font-bold mb-4">Instant Career Advice</h2>
+                            <p class="text-gray-600 max-w-2xl mx-auto">Get instant, AI-powered guidance from your personal career coach on common challenges.</p>
+                        </div>
+                        <div class="advice-container w-full bg-white p-8 rounded-2xl shadow-lg flex-grow flex flex-col">
+                            <div class="advice-buttons flex flex-wrap justify-center gap-4 mb-8">
+                                <button class="advice-btn bg-primary text-white py-3 px-6 rounded-full font-semibold hover:bg-opacity-90 transition-colors" data-prompt="How do I write a compelling resume summary?">Resume Summary</button>
+                                <button class="advice-btn bg-primary text-white py-3 px-6 rounded-full font-semibold hover:bg-opacity-90 transition-colors" data-prompt="What's the best way to answer 'Tell me about yourself' in an interview?">Interview Introduction</button>
+                                <button class="advice-btn bg-primary text-white py-3 px-6 rounded-full font-semibold hover:bg-opacity-90 transition-colors" data-prompt="How should I follow up after an interview?">Post-Interview Follow-up</button>
+                                <button class="advice-btn bg-primary text-white py-3 px-6 rounded-full font-semibold hover:bg-opacity-90 transition-colors" data-prompt="How do I negotiate my salary effectively?">Salary Negotiation</button>
+                            </div>
+                            <div id="advice-output" class="text-lg text-gray-700 bg-next-gray p-6 rounded-xl border border-gray-200 flex-grow">
+                                <strong>Click a topic to get started...</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Feature 2: Interview Question Generator -->
+                    <div class="flex flex-col h-full">
+                        <div class="text-center mb-8">
+                            <h2 class="text-3xl font-bold mb-4">Interview Question Generator</h2>
+                            <p class="text-gray-600 max-w-2xl mx-auto">Prepare for your next interview by generating questions tailored to the job role.</p>
+                        </div>
+                        <div class="advice-container w-full bg-white p-8 rounded-2xl shadow-lg flex-grow flex flex-col">
+                            <div class="flex flex-col md:flex-row gap-4 mb-4">
+                                <input type="text" id="job-title-input" class="flex-grow text-gray-800 py-3 px-6 rounded-full border border-gray-300 focus:outline-none focus:border-primary" placeholder="e.g., Software Engineer, Product Manager">
+                                <button id="generate-questions-btn" class="bg-primary text-white py-3 px-6 rounded-full font-semibold hover:bg-opacity-90 transition-colors">Generate Questions ✨</button>
+                            </div>
+                            <div id="questions-output" class="text-lg text-gray-700 bg-next-gray p-6 rounded-xl border border-gray-200 min-h-[100px] flex-grow">
+                                <strong>Enter a job title and click 'Generate Questions'.</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <div id="user-id-display" class="fixed bottom-4 left-4 bg-gray-800 text-white text-xs px-3 py-2 rounded-full shadow-lg opacity-80"></div>
+        <!-- Job Summary Modal -->
+        <div id="summary-modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-[100] hidden items-center justify-center">
+            <div class="bg-white p-8 rounded-lg shadow-xl w-11/12 max-w-2xl">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold">Job Summary</h3>
+                    <button id="close-modal-btn" class="text-gray-500 hover:text-gray-800">&times;</button>
+                </div>
+                <div id="summary-content" class="text-gray-700 max-h-96 overflow-y-auto"></div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Mobile Bottom Navigation -->
+    <footer class="md:hidden fixed bottom-0 left-0 right-0 bg-white shadow-[0_-2px_5px_rgba(0,0,0,0.1)] z-50">
+        <div class="container flex justify-around py-2">
+            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-primary transition-colors text-center w-1/4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+                <span class="text-xs mt-1">Find Jobs</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-primary transition-colors text-center w-1/4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+                <span class="text-xs mt-1">Companies</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-primary transition-colors text-center w-1/4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 12H16c-.7 2-2 3-4 3s-3.3-1-4-3H2.5"></path><path d="M5.5 5.1L2 12v6c0 1.1.9 2 2 2h16a2 2 0 0 0 2-2v-6l-3.4-6.9A2 2 0 0 0 16.8 4H7.2a2 2 0 0 0-1.8 1.1z"></path></svg>
+                <span class="text-xs mt-1">Advice</span>
+            </a>
+            <a href="#login-page" id="mobile-login-link" class="flex flex-col items-center text-gray-600 hover:text-primary transition-colors text-center w-1/4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <span class="text-xs mt-1">My Account</span>
+            </a>
+        </div>
+    </footer>
+
+
+    <!-- Login Modal -->
+    <div id="login-page" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-[100] hidden items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-11/12 max-w-sm">
+            <div class="flex justify-end mb-4">
+                <a href="#" id="login-close-btn" class="text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</a>
+            </div>
+            <h3 class="text-2xl font-bold mb-4 text-center">Sign In</h3>
+            <form>
+                <div class="mb-4">
+                    <label for="username" class="block text-gray-700 font-semibold mb-2">Username</label>
+                    <input type="text" id="username" class="w-full px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Enter your username">
+                </div>
+                <div class="mb-6">
+                    <label for="password" class="block text-gray-700 font-semibold mb-2">Password</label>
+                    <input type="password" id="password" class="w-full px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Enter your password">
+                </div>
+                <button type="submit" class="w-full bg-primary text-white py-3 px-4 rounded-full font-semibold hover:bg-opacity-90 transition-colors">Log In</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Set Firebase log level for debugging
+        setLogLevel('debug');
+
+        // Global variables for Firebase configuration provided by the environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = {
+  apiKey: "AIzaSyAXSFchtYO-TGdEDTQ1vbTbnLvS86LQRJM",
+  authDomain: "nextstep-dev-f8880.firebaseapp.com",
+  projectId: "nextstep-dev-f8880",
+  storageBucket: "nextstep-dev-f8880.firebasestorage.app",
+  messagingSenderId: "530240938772",
+  appId: "1:530240938772:web:3f84e0b3aca1655aec9801",
+  measurementId: "G-ECS14XNWDB"
+};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        // --- Firebase Initialization and Authentication ---
+        let db, auth;
+        let userId;
+
+        async function initializeFirebase() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                // Sign in with custom token if available, otherwise sign in anonymously
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        document.getElementById('user-id-display').textContent = `User ID: ${userId}`;
+                        console.log("Firebase auth state changed. User ID:", userId);
+                        // Setup real-time listener for search queries
+                        setupSearchQueryListener();
+                    } else {
+                        console.log("No user is signed in.");
+                        userId = 'anonymous'; // Fallback for unauthenticated users
+                        document.getElementById('user-id-display').textContent = `User ID: ${userId}`;
+                    }
+                });
+
+            } catch (e) {
+                console.error("Error initializing Firebase:", e);
+                // Fallback for unauthenticated users if auth fails
+                userId = crypto.randomUUID();
+                document.getElementById('user-id-display').textContent = `User ID: ${userId}`;
+            }
+        }
+
+        // --- Firestore Real-time Listener for search queries ---
+        function setupSearchQueryListener() {
+            const path = `/artifacts/${appId}/users/${userId}/search-queries`;
+            const q = collection(db, path);
+            onSnapshot(q, (querySnapshot) => {
+                const queries = [];
+                querySnapshot.forEach((doc) => {
+                    queries.push(doc.data().query);
+                });
+                console.log("Latest search queries:", queries);
+            }, (error) => {
+                console.error("Error listening to search queries:", error);
+            });
+        }
+
+        // --- Job Data and Search Logic ---
+        const allJobs = [
+            { id: 1, title: 'Software Engineer', company: 'Tech Solutions Inc.', location: 'Mysuru, India', salary: '₹8 - 12 LPA', type: 'Full-time', description: 'We are seeking a highly motivated Software Engineer to join our team. You will be responsible for designing, developing, and maintaining software applications. Strong skills in JavaScript, Python, and cloud platforms are required. You will work on a collaborative team to deliver high-quality code and innovative solutions.' },
+            { id: 2, title: 'Data Analyst', company: 'Global Insights', location: 'Bengaluru, India', salary: '₹6 - 10 LPA', type: 'Full-time', description: 'Global Insights is looking for a skilled Data Analyst to help us interpret data and turn it into actionable insights. The ideal candidate has experience with SQL, Excel, and data visualization tools like Tableau or Power BI. You will work closely with business leaders to solve complex problems and drive decision-making.' },
+            { id: 3, title: 'UX/UI Designer', company: 'Creative Labs', location: 'Remote', salary: '₹7 - 11 LPA', type: 'Full-time', description: 'Creative Labs is hiring a UX/UI Designer to create intuitive and aesthetically pleasing user experiences. You should have a portfolio demonstrating your expertise in user research, wireframing, prototyping, and visual design. Proficiency in tools like Figma or Sketch is a must.' },
+            { id: 4, title: 'Product Manager', company: 'Innovate Co.', location: 'Mumbai, India', salary: '₹15 - 20 LPA', type: 'Full-time', description: 'Innovate Co. is seeking an experienced Product Manager to lead the development of our flagship product. You will be responsible for defining the product roadmap, gathering requirements, and collaborating with engineering and marketing teams. A strong understanding of Agile methodologies is essential.' },
+            { id: 5, title: 'DevOps Engineer', company: 'CloudWorks', location: 'Hyderabad, India', salary: '₹10 - 15 LPA', type: 'Full-time', description: 'We need a DevOps Engineer to join our CloudWorks team. Your responsibilities will include managing our CI/CD pipelines, automating infrastructure, and ensuring the reliability and scalability of our systems. Experience with Docker, Kubernetes, and AWS is highly valued.' },
+            { id: 6, title: 'Frontend Developer', company: 'WebCrafters', location: 'Mysuru, India', salary: '₹5 - 9 LPA', type: 'Full-time', description: 'WebCrafters is looking for a Frontend Developer with expertise in modern JavaScript frameworks such as React or Vue.js. You will build responsive and high-performance web applications, working with designers and backend developers to bring user interfaces to life.' },
+            { id: 7, title: 'Backend Developer', company: 'API Masters', location: 'Pune, India', salary: '₹7 - 12 LPA', type: 'Full-time', description: 'API Masters is hiring a Backend Developer to design and implement robust and scalable APIs. The ideal candidate has strong experience with Node.js, Python, or Java and a solid understanding of database systems like MongoDB or PostgreSQL.' },
+            { id: 8, title: 'Machine Learning Engineer', company: 'AI Innovations', location: 'Bengaluru, India', salary: '₹12 - 18 LPA', type: 'Full-time', description: 'AI Innovations is seeking a Machine Learning Engineer to build and deploy ML models. You should have a strong background in data science, machine learning algorithms, and frameworks like TensorFlow or PyTorch. Experience with MLOps practices is a plus.' },
+            { id: 9, title: 'Digital Marketing Specialist', company: 'Market Growth', location: 'Remote', salary: '₹4 - 7 LPA', type: 'Full-time', description: 'Market Growth is looking for a Digital Marketing Specialist to manage our online marketing campaigns. You will be responsible for SEO, SEM, social media marketing, and email campaigns. Strong analytical skills and experience with marketing automation tools are a must.' },
+            { id: 10, title: 'Chartered Accountant', company: 'Finance Partners', location: 'Delhi, India', salary: '₹9 - 14 LPA', type: 'Full-time', description: 'A leading financial consultancy is looking for a qualified Chartered Accountant to manage financial reporting, taxation, and auditing for our diverse client base. Strong knowledge of Indian accounting standards is required.' },
+            { id: 11, title: 'Registered Nurse', company: 'Apollo Hospitals', location: 'Chennai, India', salary: '₹3 - 6 LPA', type: 'Full-time', description: 'Join our compassionate team of healthcare professionals. Responsibilities include patient care, administering medication, and collaborating with doctors. Must have a valid nursing license.' },
+            { id: 12, title: 'Civil Engineer', company: 'InfraBuild Corp', location: 'Ahmedabad, India', salary: '₹6 - 11 LPA', type: 'Full-time', description: 'We are seeking a Civil Engineer for large-scale infrastructure projects. You will be involved in project planning, site supervision, and ensuring quality standards are met. Experience with AutoCAD is essential.' },
+            { id: 13, title: 'Content Writer', company: 'Creative Quill', location: 'Kolkata, India', salary: '₹4 - 7 LPA', type: 'Full-time', description: 'Creative Quill is looking for a talented Content Writer to create engaging blog posts, website copy, and social media content for our clients. A strong command of English and a knack for storytelling are crucial.' },
+            { id: 14, title: 'IT Support Specialist', company: 'Tech Support Gurus', location: 'Mysuru, India', salary: '₹3 - 5 LPA', type: 'Full-time', description: 'Provide technical assistance and support for incoming queries and issues related to computer systems, software, and hardware. Respond to queries either in person or over the phone.' },
+            { id: 15, title: 'Human Resources (HR) Manager', company: 'PeopleFirst Inc.', location: 'Bengaluru, India', salary: '₹10 - 16 LPA', type: 'Full-time', description: 'We are looking for an experienced HR Manager to oversee all aspects of human resources practices and processes. You will support business needs and ensure the proper implementation of company strategy and objectives.' }
+        ];
+
+        const jobGrid = document.getElementById('job-listings-grid');
+        const searchInput = document.getElementById('job-search-input');
+        const searchButton = document.getElementById('search-btn');
+
+        function renderJobCards(jobs) {
+            jobGrid.innerHTML = '';
+            
+            if (jobs.length === 0) {
+                 jobGrid.innerHTML = '<p class="w-full text-center text-gray-500">No jobs found. Try a different search term.</p>';
+                 return;
+            }
+
+            jobs.forEach(job => {
+                const card = document.createElement('div');
+                card.className = 'bg-white p-6 rounded-xl shadow-md border border-gray-200 transition-transform hover:scale-105 w-72 flex-shrink-0';
+                card.innerHTML = `
+                    <h3 class="text-xl font-semibold text-primary mb-2">${job.title}</h3>
+                    <p class="text-gray-600 mb-1"><strong>${job.company}</strong></p>
+                    <p class="text-sm text-gray-500 mb-4">${job.location} · ${job.type}</p>
+                    <p class="text-lg font-bold text-gray-800 mb-4">${job.salary}</p>
+                    <button class="summarize-btn mt-4 w-full bg-accent text-white py-2 px-4 rounded-full font-semibold hover:bg-opacity-90 transition-colors" data-description="${job.description}">Summarize ✨</button>
+                    <button class="mt-4 w-full bg-secondary text-white py-2 px-4 rounded-full font-semibold hover:bg-blue-600 transition-colors">Apply Now</button>
+                `;
+                jobGrid.appendChild(card);
+            });
+            document.querySelectorAll('.summarize-btn').forEach(btn => {
+                btn.addEventListener('click', handleJobSummary);
+            });
+            
+            // Call this after rendering to update button visibility
+            setTimeout(updateScrollButtonsVisibility, 100);
+        }
+        
+        // --- MODIFIED: Horizontal Scroll Logic for Desktop and Mobile ---
+        const scrollWrapper = document.getElementById('scroll-wrapper');
+        const scrollLeftBtn = document.getElementById('scroll-left');
+        const scrollRightBtn = document.getElementById('scroll-right');
+        let autoScrollInterval;
+        let userInteractionTimeout;
+
+        function updateScrollButtonsVisibility() {
+            if (!scrollWrapper) return;
+            
+            const tolerance = 1;
+            const isAtStart = scrollWrapper.scrollLeft <= tolerance;
+            const isAtEnd = scrollWrapper.scrollLeft >= scrollWrapper.scrollWidth - scrollWrapper.clientWidth - tolerance;
+
+            scrollLeftBtn.classList.toggle('hidden', isAtStart);
+            scrollRightBtn.classList.toggle('hidden', isAtEnd);
+        }
+
+        const stopAutoScroll = () => {
+            clearInterval(autoScrollInterval);
+        };
+
+        const startAutoScroll = () => {
+            stopAutoScroll(); // Prevent multiple intervals
+            autoScrollInterval = setInterval(() => {
+                if (scrollWrapper.scrollLeft >= (scrollWrapper.scrollWidth - scrollWrapper.clientWidth - 1)) {
+                    scrollWrapper.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    scrollWrapper.scrollBy({ left: 1, behavior: 'auto' });
+                }
+            }, 30);
+        };
+
+        // Pauses scrolling and resumes after a delay
+        const pauseAndResume = () => {
+            stopAutoScroll();
+            clearTimeout(userInteractionTimeout);
+            userInteractionTimeout = setTimeout(startAutoScroll, 5000); // Resume after 5 seconds of inactivity
+        };
+
+
+        if(scrollLeftBtn && scrollRightBtn && scrollWrapper) {
+            scrollLeftBtn.addEventListener('click', () => {
+                const cardWidth = scrollWrapper.querySelector('.bg-white')?.offsetWidth || 300;
+                scrollWrapper.scrollBy({ left: -(cardWidth + 24), behavior: 'smooth' });
+                pauseAndResume();
+            });
+            
+            scrollRightBtn.addEventListener('click', () => {
+                const cardWidth = scrollWrapper.querySelector('.bg-white')?.offsetWidth || 300;
+                scrollWrapper.scrollBy({ left: cardWidth + 24, behavior: 'smooth' });
+                pauseAndResume();
+            });
+
+            // Pause on hover, resume on leave.
+            const scrollContainer = scrollWrapper.parentElement; // The div with class 'group'
+            scrollContainer.addEventListener('mouseenter', stopAutoScroll);
+            scrollContainer.addEventListener('mouseleave', startAutoScroll);
+
+            scrollWrapper.addEventListener('scroll', updateScrollButtonsVisibility);
+            // Use a ResizeObserver to handle changes in container or content size
+            new ResizeObserver(updateScrollButtonsVisibility).observe(scrollWrapper);
+            new ResizeObserver(updateScrollButtonsVisibility).observe(jobGrid);
+        }
+
+
+        async function handleJobSearch() {
+            const query = searchInput.value.toLowerCase().trim();
+            if (query === '' && db && userId) { // Only log search if there is a query
+                renderJobCards(allJobs);
+                return;
+            }
+
+            if (db && userId) {
+                try {
+                    await addDoc(collection(db, `/artifacts/${appId}/users/${userId}/search-queries`), {
+                        query: query,
+                        timestamp: serverTimestamp()
+                    });
+                } catch (e) {
+                    console.error("Error adding document:", e);
+                }
+            }
+
+            const filteredJobs = allJobs.filter(job =>
+                job.title.toLowerCase().includes(query) ||
+                job.company.toLowerCase().includes(query) ||
+                job.location.toLowerCase().includes(query)
+            );
+            renderJobCards(filteredJobs);
+        }
+
+        searchInput.addEventListener('input', handleJobSearch);
+        searchButton.addEventListener('click', handleJobSearch);
+
+        // --- AI API Configuration ---
+        const apiKey = "AIzaSyB8bZfge35HDSomQ2AhD9JATwNw40vV8Bo";
+        const textApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+        const ttsApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
+        function showLoading(element) {
+            element.innerHTML = `<div class="flex items-center space-x-2 text-gray-500">
+                <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span>Getting advice...</span>
+            </div>`;
+        }
+        function showError(element, message) {
+            element.innerHTML = `<p class="text-red-500">${message}</p>`;
+        }
+        async function callGeminiTextAPI(prompt) {
+            try {
+                const payload = { contents: [{ parts: [{ text: prompt }] }] };
+                const response = await fetch(textApiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) {
+                    throw new Error(`API response was not ok: ${response.statusText}`);
+                }
+                const result = await response.json();
+                return result?.candidates?.[0]?.content?.parts?.[0]?.text;
+            } catch (error) {
+                console.error("Error calling Gemini Text API:", error);
+                return null;
+            }
+        }
+
+        // --- AI Career Coach Logic ---
+        const adviceButtons = document.querySelectorAll('.advice-btn');
+        const adviceOutput = document.getElementById('advice-output');
+        const readAloudButton = document.createElement('button');
+        readAloudButton.className = 'mt-4 bg-primary text-white py-2 px-4 rounded-full font-semibold hover:bg-opacity-90 transition-colors w-full';
+        readAloudButton.innerHTML = 'Read Aloud ✨';
+        adviceOutput.after(readAloudButton);
+
+        adviceButtons.forEach(button => {
+            button.addEventListener('click', async () => {
+                const prompt = button.dataset.prompt;
+                showLoading(adviceOutput);
+                const text = await callGeminiTextAPI(prompt);
+                if (text) {
+                    adviceOutput.textContent = text;
+                    readAloudButton.style.display = 'block';
+                } else {
+                    showError(adviceOutput, "Oops! Something went wrong. Please try again.");
+                    readAloudButton.style.display = 'none';
+                }
+            });
+        });
+
+        // --- TTS Logic ---
+        readAloudButton.addEventListener('click', async () => {
+            const textToSpeak = adviceOutput.textContent.trim();
+            if (textToSpeak === 'Click a topic to get started...' || textToSpeak.startsWith('Oops!')) return;
+
+            readAloudButton.innerHTML = 'Reading...';
+            readAloudButton.disabled = true;
+
+            const payload = {
+                contents: [{ parts: [{ text: textToSpeak }] }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } }
+                }
+            };
+
+            try {
+                const response = await fetch(ttsApiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+                const part = result?.candidates?.[0]?.content?.parts?.[0];
+                const audioData = part?.inlineData?.data;
+                const mimeType = part?.inlineData?.mimeType;
+
+                if (audioData && mimeType) {
+                    const audioBlob = b64toBlob(audioData, mimeType);
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    const audio = new Audio(audioUrl);
+                    audio.play();
+                } else {
+                    console.error('Audio data not found in response:', result);
+                }
+            } catch (e) {
+                console.error('TTS API call failed:', e);
+            } finally {
+                readAloudButton.innerHTML = 'Read Aloud ✨';
+                readAloudButton.disabled = false;
+            }
+        });
+
+        function b64toBlob(b64Data, contentType = '', sliceSize = 512) {
+            const byteCharacters = atob(b64Data);
+            const byteArrays = [];
+            for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                const slice = byteCharacters.slice(offset, offset + sliceSize);
+                const byteNumbers = new Array(slice.length);
+                for (let i = 0; i < slice.length; i++) {
+                    byteNumbers[i] = slice.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                byteArrays.push(byteArray);
+            }
+            return new Blob(byteArrays, { type: contentType });
+        }
+
+
+        // --- Job Description Summary Modal Logic ---
+        const summaryModal = document.getElementById('summary-modal');
+        const summaryContent = document.getElementById('summary-content');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+
+        function openModal() {
+            summaryModal.style.display = 'flex';
+        }
+        function closeModal() {
+            summaryModal.style.display = 'none';
+        }
+
+        closeModalBtn.addEventListener('click', closeModal);
+        window.addEventListener('click', (event) => {
+            if (event.target === summaryModal) {
+                closeModal();
+            }
+        });
+        
+        async function handleJobSummary(event) {
+            const description = event.target.dataset.description;
+            if (!description) return;
+
+            openModal();
+            showLoading(summaryContent);
+
+            const prompt = `Summarize the following job description, highlighting the key responsibilities and required skills. Use bullet points.\n\n${description}`;
+            const summaryText = await callGeminiTextAPI(prompt);
+
+            if (summaryText) {
+                summaryContent.innerHTML = `<h4 class="font-bold mb-2">Summary:</h4><pre class="whitespace-pre-wrap">${summaryText}</pre>`;
+            } else {
+                showError(summaryContent, "Failed to generate summary. Please try again.");
+            }
+        }
+
+        // --- Interview Question Generator Logic ---
+        const jobTitleInput = document.getElementById('job-title-input');
+        const generateQuestionsBtn = document.getElementById('generate-questions-btn');
+        const questionsOutput = document.getElementById('questions-output');
+
+        generateQuestionsBtn.addEventListener('click', async () => {
+            const jobTitle = jobTitleInput.value.trim();
+            if (jobTitle === '') {
+                showError(questionsOutput, 'Please enter a job title.');
+                return;
+            }
+
+            showLoading(questionsOutput);
+
+            const prompt = `Generate a list of 5-7 common interview questions for a candidate applying for the role of a "${jobTitle}". Provide clear and concise questions.`;
+            const questionsText = await callGeminiTextAPI(prompt);
+
+            if (questionsText) {
+                questionsOutput.innerHTML = `<h4 class="font-bold mb-2">Top Questions for ${jobTitle}:</h4><pre class="whitespace-pre-wrap">${questionsText}</pre>`;
+            } else {
+                showError(questionsOutput, "Failed to generate questions. Please try again.");
+            }
+        });
+
+        // --- Login Modal & Dropdown Logic ---
+        const loginPage = document.getElementById('login-page');
+        const loginLink = document.getElementById('login-link');
+        const mobileLoginLink = document.getElementById('mobile-login-link');
+        const loginCloseBtn = document.getElementById('login-close-btn');
+        const profileLink = document.getElementById('profile-link');
+        const accountButton = document.getElementById('account-button');
+        const accountDropdown = document.getElementById('account-dropdown');
+        const dropdownChevron = document.getElementById('dropdown-chevron');
+
+        if (accountButton && accountDropdown) {
+            accountButton.addEventListener('click', (event) => {
+                event.stopPropagation();
+                accountDropdown.classList.toggle('hidden');
+                dropdownChevron.classList.toggle('rotate-180');
+            });
+        }
+
+        window.addEventListener('click', (event) => {
+            if (accountDropdown && !accountDropdown.classList.contains('hidden')) {
+                if (!accountButton.contains(event.target)) {
+                    accountDropdown.classList.add('hidden');
+                    dropdownChevron.classList.remove('rotate-180');
+                }
+            }
+        });
+        
+        const showLoginModal = (event) => {
+            event.preventDefault();
+            loginPage.classList.remove('hidden');
+            loginPage.classList.add('flex');
+        };
+        
+        loginLink.addEventListener('click', showLoginModal);
+        mobileLoginLink.addEventListener('click', showLoginModal);
+        
+        loginCloseBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            loginPage.classList.add('hidden');
+            loginPage.classList.remove('flex');
+        });
+
+        profileLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            const destinationUrl = event.currentTarget.getAttribute('href');
+            if(destinationUrl) window.location.href = destinationUrl;
+        });
+        
+
+        // --- Initial Load ---
+        window.onload = function() {
+            initializeFirebase();
+            renderJobCards(allJobs);
+            startAutoScroll();
+
+            // --- Toolkit Card Click Handling ---
+            document.querySelectorAll('.features-toolkit-section .feature-card').forEach(card => {
+                card.addEventListener('click', (event) => {
+                    event.preventDefault(); // Stop the browser's default link navigation
+                    const destinationUrl = event.currentTarget.getAttribute('href');
+                    if (destinationUrl) {
+                        window.location.href = destinationUrl; // Manually navigate using JavaScript
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
+

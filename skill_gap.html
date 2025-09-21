@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextStep | Skill Gap Analyzer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#4338ca',
+                        secondary: '#3b82f6',
+                        accent: '#eab308',
+                        'next-gray': '#f3f4f6',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-next-gray font-sans text-gray-800">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto flex items-center justify-between py-4 px-4">
+            <a href="index.html" class="logo text-primary text-2xl font-bold">NextStep</a>
+            <a href="index.html" class="text-gray-600 hover:text-primary transition-colors">&larr; Back to Home</a>
+        </div>
+    </header>
+
+    <main class="py-16 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold mb-4">Your Skill Gap Analysis</h1>
+                <p class="text-lg text-gray-600">See how your skills stack up against your desired roles and get actionable insights.</p>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-lg">
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-8 border-b pb-6">
+                    <h2 class="text-2xl font-bold mb-4 sm:mb-0">Target Role: <span class="text-primary">Software Engineer</span></h2>
+                    <a href="learning_path.html" class="w-full sm:w-auto text-center bg-accent text-white py-3 px-6 rounded-full font-semibold hover:bg-opacity-90 transition-colors">Generate Learning Path ✨</a>
+                </div>
+                
+                <div class="space-y-6">
+                    <!-- Skill 1 -->
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="font-semibold text-gray-700">JavaScript</span>
+                            <span class="text-sm font-semibold text-gray-500">90% Proficient</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-5">
+                          <div class="bg-secondary h-5 rounded-full text-center text-white text-sm" style="width: 90%">Your Skill</div>
+                        </div>
+                         <div class="w-full bg-gray-200 rounded-full h-5 mt-1">
+                          <div class="bg-green-500 h-5 rounded-full text-center text-white text-sm" style="width: 80%">Required</div>
+                        </div>
+                    </div>
+                    <!-- Skill 2 -->
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="font-semibold text-gray-700">Python</span>
+                            <span class="text-sm font-semibold text-gray-500">60% Proficient</span>
+                        </div>
+                         <div class="w-full bg-gray-200 rounded-full h-5">
+                          <div class="bg-secondary h-5 rounded-full text-center text-white text-sm" style="width: 60%">Your Skill</div>
+                        </div>
+                         <div class="w-full bg-gray-200 rounded-full h-5 mt-1">
+                          <div class="bg-green-500 h-5 rounded-full text-center text-white text-sm" style="width: 75%">Required</div>
+                        </div>
+                    </div>
+                    <!-- Skill 3 -->
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="font-semibold text-gray-700">Cloud Platforms (AWS)</span>
+                            <span class="text-sm font-semibold text-gray-500">40% Proficient</span>
+                        </div>
+                         <div class="w-full bg-gray-200 rounded-full h-5">
+                          <div class="bg-secondary h-5 rounded-full text-center text-white text-sm" style="width: 40%">Your Skill</div>
+                        </div>
+                         <div class="w-full bg-gray-200 rounded-full h-5 mt-1">
+                          <div class="bg-green-500 h-5 rounded-full text-center text-white text-sm" style="width: 70%">Required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
